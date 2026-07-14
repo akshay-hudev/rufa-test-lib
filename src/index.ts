@@ -15,6 +15,19 @@ export function slugify(text: string): string {
     .replace(/^-|-$/g, "");
 }
 
+export function truncateText(text: string, maxLength: number): string {
+  if (!Number.isInteger(maxLength) || maxLength < 1) {
+    throw new Error("maxLength must be a positive integer");
+  }
+  if (text.length <= maxLength) {
+    return text;
+  }
+  if (maxLength <= 3) {
+    return ".".repeat(maxLength);
+  }
+  return `${text.slice(0, maxLength - 3)}...`;
+}
+
 export function parseDateRange(input: string): { start: Date; end: Date } {
   const [startText, endText] = input.split("..", 2);
   if (!startText || !endText) {

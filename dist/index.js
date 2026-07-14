@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.formatCurrency = formatCurrency;
 exports.slugify = slugify;
+exports.truncateText = truncateText;
 exports.parseDateRange = parseDateRange;
 exports.debounce = debounce;
 function formatCurrency(amount) {
@@ -18,6 +19,18 @@ function slugify(text) {
         .trim()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, "");
+}
+function truncateText(text, maxLength) {
+    if (!Number.isInteger(maxLength) || maxLength < 1) {
+        throw new Error("maxLength must be a positive integer");
+    }
+    if (text.length <= maxLength) {
+        return text;
+    }
+    if (maxLength <= 3) {
+        return ".".repeat(maxLength);
+    }
+    return `${text.slice(0, maxLength - 3)}...`;
 }
 function parseDateRange(input) {
     const [startText, endText] = input.split("..", 2);
