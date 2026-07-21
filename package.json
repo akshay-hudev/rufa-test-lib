@@ -1,14 +1,14 @@
 {
   "name": "rufa-test-lib",
   "version": "1.0.0",
-  "description": "Throwaway package for validating cross-repository SCIP resolution",
+  "private": true,
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": ["dist"],
   "scripts": {
-    "build": "tsc"
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run clean && tsc",
+    "test": "npm run build && node --test test/*.test.js"
   },
-  "license": "MIT",
   "devDependencies": {
     "typescript": "5.9.3"
   }
